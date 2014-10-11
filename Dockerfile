@@ -1,12 +1,14 @@
-FROM ubuntu:12.04
-MAINTAINER Arcus "http://arcus.io"
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
+FROM debian:latest
+RUN echo "deb http://mi.mirror.garr.it/mirrors/debian/ wheezy main" > /etc/apt/sources.list
+RUN echo "deb-src http://mi.mirror.garr.it/mirrors/debian/ wheezy main" >> /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ wheezy/updates main" >> /etc/apt/sources.list
+RUN echo "deb-src http://security.debian.org/ wheezy/updates main" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y wget
 RUN wget -q http://apt.puppetlabs.com/puppetlabs-release-precise.deb -O /tmp/puppetlabs.deb
 RUN dpkg -i /tmp/puppetlabs.deb
 RUN apt-get update
-RUN apt-get -y install puppetmaster-passenger puppet-dashboard puppetdb puppetdb-terminus redis-server supervisor openssh-server net-tools mysql-server
+RUN apt-get -f -y install puppetmaster-passenger puppet-dashboard puppetdb puppetdb-terminus redis-server supervisor openssh-server net-tools mysql-server
 RUN gem install --no-ri --no-rdoc hiera hiera-puppet redis hiera-redis hiera-redis-backend
 RUN echo "127.0.0.1 localhost puppet puppetdb puppetdb.local puppet.local" > /etc/hosts
 RUN mkdir /var/run/sshd
