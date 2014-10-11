@@ -28,11 +28,12 @@ RUN (start-stop-daemon --start -b --exec /usr/sbin/mysqld && cd /usr/share/puppe
 RUN (sed -i 's/.*START.*/START=yes/g' /etc/default/puppet-dashboard)
 RUN (sed -i 's/.*START.*/START=yes/g' /etc/default/puppet-dashboard-workers)
 
-RUN mkdir /root/.ssh
+
+#RUN mkdir /root/.ssh
 # NOTE: change this key to your own
-ADD sshkey.pub /root/.ssh/authorized_keys
-RUN chown root:root /root/.ssh/authorized_keys
-ADD run.sh /usr/local/bin/run
+#ADD sshkey.pub /root/.ssh/authorized_keys
+#RUN chown root:root /root/.ssh/authorized_keys
+#ADD run.sh /usr/local/bin/run
 
 EXPOSE 22
 EXPOSE 3000
